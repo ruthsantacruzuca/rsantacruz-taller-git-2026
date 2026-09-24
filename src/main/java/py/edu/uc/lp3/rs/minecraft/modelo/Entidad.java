@@ -1,10 +1,12 @@
 package py.edu.uc.lp3.rs.minecraft.modelo;
 
-public class Entidad {
+public abstract class Entidad {
 
     private int vida;
     private int danoBase;
     private int velocidad;
+
+    public abstract String emitirSonido();
 
     public Entidad(int vida, int danoBase, int velocidad) {
         this.vida = validarVida(vida);

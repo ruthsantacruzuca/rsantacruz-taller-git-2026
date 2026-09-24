@@ -9,6 +9,11 @@ public class ZombiePequeno extends Zombie {
         setVelocidadAumentada(velocidadAumentada);
     }
 
+    @Override
+    public String emitirSonido() {
+        return "Un zombie pequeño chilla: ¡Grrr-íiii!";
+    }
+
     public int getVelocidadAumentada() {
         return velocidadAumentada;
     }

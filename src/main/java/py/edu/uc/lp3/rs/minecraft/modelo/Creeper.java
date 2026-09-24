@@ -9,6 +9,11 @@ public class Creeper extends Mob {
         setCargaExplosion(cargaExplosion);
     }
 
+    @Override
+    public String emitirSonido() {
+        return "Un creeper silba mientras se carga: ¡SSSSS... BOOM!";
+    }
+
     public int getCargaExplosion() {
         return cargaExplosion;
     }

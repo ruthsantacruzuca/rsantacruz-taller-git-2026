@@ -9,6 +9,11 @@ public class Mob extends Entidad {
         this.hostil = hostil;
     }
 
+    @Override
+    public String emitirSonido() {
+        return "Un mob emite un ruido sordo desde la oscuridad";
+    }
+
     public boolean isHostil() {
         return hostil;
     }

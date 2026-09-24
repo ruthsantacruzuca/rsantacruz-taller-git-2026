@@ -35,6 +35,7 @@ public class ConstruccionController {
         cuerpo.put("vida", entidad.getVida());
         cuerpo.put("danoBase", entidad.getDanoBase());
         cuerpo.put("velocidad", entidad.getVelocidad());
+        cuerpo.put("sonido", entidad.emitirSonido());
         return cuerpo;
     }
 }

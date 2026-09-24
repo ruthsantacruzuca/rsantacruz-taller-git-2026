@@ -9,6 +9,11 @@ public class Cerdo extends Mob {
         this.montable = montable;
     }
 
+    @Override
+    public String emitirSonido() {
+        return "Un cerdo gruñe: ¡Oink, oink!";
+    }
+
     public boolean isMontable() {
         return montable;
     }

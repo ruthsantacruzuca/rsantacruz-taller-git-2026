@@ -6,6 +6,11 @@ public class Zombie extends Mob {
         super(vida, danoBase, velocidad, true);
     }
 
+    @Override
+    public String emitirSonido() {
+        return "Un zombie gruñe: ¡Grrr... brrraaains!";
+    }
+
     public void atacar(Jugador jugador) {
         if (jugador == null) {
             throw new IllegalArgumentException("No se puede atacar a un jugador nulo");

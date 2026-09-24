@@ -9,6 +9,11 @@ public class Aldeano extends Mob {
         this.comercializacion = comercializacion;
     }
 
+    @Override
+    public String emitirSonido() {
+        return "Un aldeano murmura al hacer trueque: ¡Hrmm, hrmm!";
+    }
+
     public boolean puedeComercializar() {
         return comercializacion;
     }

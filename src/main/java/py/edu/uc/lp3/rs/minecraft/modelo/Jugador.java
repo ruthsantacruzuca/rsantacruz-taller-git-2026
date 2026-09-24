@@ -25,6 +25,11 @@ public class Jugador extends Entidad {
     }
 
     @Override
+    public String emitirSonido() {
+        return "Un jugador respira agitado y saluda: ¡Hola!";
+    }
+
+    @Override
     public void setVida(int vida) {
         if (vida > VIDA_MAXIMA) {
             throw new IllegalArgumentException("La vida de un jugador no puede superar " + VIDA_MAXIMA + ": " + vida);
