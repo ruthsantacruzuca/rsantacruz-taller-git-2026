@@ -14,6 +14,7 @@ public final class FabricaEntidades {
             case "jugador" -> new Jugador(vida, danoBase, velocidad, valorExtra);
             case "zombie" -> new Zombie(vida, danoBase, velocidad);
             case "zombiepequeno" -> new ZombiePequeno(vida, danoBase, velocidad, valorExtra);
+            case "esqueleto" -> new Esqueleto(vida, danoBase, velocidad, valorExtra);
             case "cerdo" -> new Cerdo(vida, danoBase, velocidad, valorExtra > 0);
             case "aldeano" -> new Aldeano(vida, danoBase, velocidad, valorExtra > 0);
             default -> throw new IllegalArgumentException("Tipo de entidad desconocido: " + tipo);
