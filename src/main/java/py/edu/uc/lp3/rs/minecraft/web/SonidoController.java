@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import py.edu.uc.lp3.rs.minecraft.modelo.Creeper;
 import py.edu.uc.lp3.rs.minecraft.modelo.Entidad;
+import py.edu.uc.lp3.rs.minecraft.modelo.Esqueleto;
 import py.edu.uc.lp3.rs.minecraft.modelo.Zombie;
 
 @RestController
@@ -17,7 +18,8 @@ public class SonidoController {
     public Map<String, Object> sonidos() {
         List<Entidad> entidades = List.of(
                 new Creeper(20, 6, 3, 24),
-                new Zombie(20, 4, 3));
+                new Zombie(20, 4, 3),
+                new Esqueleto(20, 5, 2, 80));
         List<String> mensajes = entidades.stream()
                 .map(Entidad::emitirSonido)
                 .toList();
