@@ -4,6 +4,15 @@ public class Mob extends Entidad {
 
     private boolean hostil;
 
+    public Mob(int vida) {
+        this(vida, false);
+    }
+
+    public Mob(int vida, boolean hostil) {
+        super(vida);
+        this.hostil = hostil;
+    }
+
     public Mob(int vida, int danoBase, int velocidad, boolean hostil) {
         super(vida, danoBase, velocidad);
         this.hostil = hostil;

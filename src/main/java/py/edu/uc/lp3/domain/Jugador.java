@@ -3,7 +3,12 @@ package py.edu.uc.lp3.domain;
 public class Jugador extends Entidad {
 
     private static final int VIDA_MAXIMA = 20;
+    public static final int ARMADURA_POR_DEFECTO = 0;
     private int armadura;
+
+    public Jugador(int vida) {
+        this(vida, DANO_BASE_POR_DEFECTO, VELOCIDAD_POR_DEFECTO, ARMADURA_POR_DEFECTO);
+    }
 
     public Jugador(int vida, int danoBase, int velocidad, int armadura) {
         super(vida, danoBase, velocidad);

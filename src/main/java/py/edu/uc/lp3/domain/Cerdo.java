@@ -4,6 +4,10 @@ public class Cerdo extends Mob {
 
     private boolean montable;
 
+    public Cerdo(int vida) {
+        this(vida, DANO_BASE_POR_DEFECTO, VELOCIDAD_POR_DEFECTO, false);
+    }
+
     public Cerdo(int vida, int danoBase, int velocidad, boolean montable) {
         super(vida, danoBase, velocidad, false);
         this.montable = montable;

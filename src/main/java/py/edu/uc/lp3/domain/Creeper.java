@@ -2,7 +2,12 @@ package py.edu.uc.lp3.domain;
 
 public class Creeper extends Mob {
 
+    private static final int CARGA_EXPLOSION_POR_DEFECTO = 12;
     private int cargaExplosion;
+
+    public Creeper(int vida) {
+        this(vida, DANO_BASE_POR_DEFECTO, VELOCIDAD_POR_DEFECTO, CARGA_EXPLOSION_POR_DEFECTO);
+    }
 
     public Creeper(int vida, int danoBase, int velocidad, int cargaExplosion) {
         super(vida, danoBase, velocidad, true);

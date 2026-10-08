@@ -2,7 +2,12 @@ package py.edu.uc.lp3.domain;
 
 public class ZombiePequeno extends Zombie {
 
+    private static final int VELOCIDAD_AUMENTADA_POR_DEFECTO = 2;
     private int velocidadAumentada;
+
+    public ZombiePequeno(int vida) {
+        this(vida, DANO_BASE_POR_DEFECTO, VELOCIDAD_POR_DEFECTO, VELOCIDAD_AUMENTADA_POR_DEFECTO);
+    }
 
     public ZombiePequeno(int vida, int danoBase, int velocidad, int velocidadAumentada) {
         super(vida, danoBase, velocidad);

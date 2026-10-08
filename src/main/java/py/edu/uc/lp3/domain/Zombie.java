@@ -2,6 +2,10 @@ package py.edu.uc.lp3.domain;
 
 public class Zombie extends Mob {
 
+    public Zombie(int vida) {
+        super(vida, true);
+    }
+
     public Zombie(int vida, int danoBase, int velocidad) {
         super(vida, danoBase, velocidad, true);
     }

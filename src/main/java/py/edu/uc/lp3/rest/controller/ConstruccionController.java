@@ -18,24 +18,34 @@ public class ConstruccionController {
     public ResponseEntity<Map<String, Object>> construir(
             @RequestParam String tipo,
             @RequestParam int vida,
-            @RequestParam int danoBase,
-            @RequestParam int velocidad,
+            @RequestParam(required = false) Integer danoBase,
+            @RequestParam(required = false) Integer velocidad,
             @RequestParam(defaultValue = "0") int valorExtra) {
         try {
-            Entidad entidad = FabricaEntidades.construir(tipo, vida, danoBase, velocidad, valorExtra);
-            return ResponseEntity.ok(describir(entidad));
+            boolean ninguno = danoBase == null && velocidad == null;
+            boolean completo = danoBase != null && velocidad != null;
+            if (ninguno) {
+                return responder(FabricaEntidades.construir(tipo, vida), "simple (construir(tipo, vida))");
+            }
+            if (completo) {
+                return responder(FabricaEntidades.construir(tipo, vida, danoBase, velocidad, valorExtra),
+                        "sobrecargado (construir(tipo, vida, danoBase, velocidad, valorExtra))");
+            }
+            return ResponseEntity.badRequest().body(Map.of("error",
+                    "Pasá danoBase y velocidad juntos (firma completa) o ninguno de los dos (firma simple)"));
         } catch (IllegalArgumentException ex) {
             return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
         }
     }
 
-    private Map<String, Object> describir(Entidad entidad) {
+    private ResponseEntity<Map<String, Object>> responder(Entidad entidad, String constructor) {
         Map<String, Object> cuerpo = new LinkedHashMap<>();
         cuerpo.put("tipo", entidad.getClass().getSimpleName());
+        cuerpo.put("constructor", constructor);
         cuerpo.put("vida", entidad.getVida());
         cuerpo.put("danoBase", entidad.getDanoBase());
         cuerpo.put("velocidad", entidad.getVelocidad());
         cuerpo.put("sonido", entidad.emitirSonido());
-        return cuerpo;
+        return ResponseEntity.ok(cuerpo);
     }
 }

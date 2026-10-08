@@ -5,10 +5,22 @@ public final class FabricaEntidades {
     private FabricaEntidades() {
     }
 
+    public static Entidad construir(String tipo, int vida) {
+        validarTipo(tipo);
+        return switch (tipo.toLowerCase()) {
+            case "creeper" -> new Creeper(vida);
+            case "jugador" -> new Jugador(vida);
+            case "zombie" -> new Zombie(vida);
+            case "zombiepequeno" -> new ZombiePequeno(vida);
+            case "esqueleto" -> new Esqueleto(vida);
+            case "cerdo" -> new Cerdo(vida);
+            case "aldeano" -> new Aldeano(vida);
+            default -> throw new IllegalArgumentException("Tipo de entidad desconocido: " + tipo);
+        };
+    }
+
     public static Entidad construir(String tipo, int vida, int danoBase, int velocidad, int valorExtra) {
-        if (tipo == null || tipo.isBlank()) {
-            throw new IllegalArgumentException("Falta el tipo de entidad");
-        }
+        validarTipo(tipo);
         return switch (tipo.toLowerCase()) {
             case "creeper" -> new Creeper(vida, danoBase, velocidad, valorExtra);
             case "jugador" -> new Jugador(vida, danoBase, velocidad, valorExtra);
@@ -19,5 +31,11 @@ public final class FabricaEntidades {
             case "aldeano" -> new Aldeano(vida, danoBase, velocidad, valorExtra > 0);
             default -> throw new IllegalArgumentException("Tipo de entidad desconocido: " + tipo);
         };
+    }
+
+    private static void validarTipo(String tipo) {
+        if (tipo == null || tipo.isBlank()) {
+            throw new IllegalArgumentException("Falta el tipo de entidad");
+        }
     }
 }

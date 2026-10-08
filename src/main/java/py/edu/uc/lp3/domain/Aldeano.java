@@ -4,6 +4,10 @@ public class Aldeano extends Mob {
 
     private boolean comercializacion;
 
+    public Aldeano(int vida) {
+        this(vida, DANO_BASE_POR_DEFECTO, VELOCIDAD_POR_DEFECTO, false);
+    }
+
     public Aldeano(int vida, int danoBase, int velocidad, boolean comercializacion) {
         super(vida, danoBase, velocidad, false);
         this.comercializacion = comercializacion;

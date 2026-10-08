@@ -2,11 +2,18 @@ package py.edu.uc.lp3.domain;
 
 public abstract class Entidad {
 
+    public static final int DANO_BASE_POR_DEFECTO = 1;
+    public static final int VELOCIDAD_POR_DEFECTO = 1;
+
     private int vida;
     private int danoBase;
     private int velocidad;
 
     public abstract String emitirSonido();
+
+    public Entidad(int vida) {
+        this(vida, DANO_BASE_POR_DEFECTO, VELOCIDAD_POR_DEFECTO);
+    }
 
     public Entidad(int vida, int danoBase, int velocidad) {
         this.vida = validarVida(vida);
