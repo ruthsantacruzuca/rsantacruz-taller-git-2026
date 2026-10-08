@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.rs.minecraft.modelo;
+package py.edu.uc.lp3.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.rs.minecraft.web;
+package py.edu.uc.lp3.rest.controller;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import py.edu.uc.lp3.rs.minecraft.modelo.Entidad;
-import py.edu.uc.lp3.rs.minecraft.modelo.FabricaEntidades;
+import py.edu.uc.lp3.domain.Entidad;
+import py.edu.uc.lp3.domain.FabricaEntidades;
 
 @RestController
 public class ConstruccionController {

@@ -1,10 +1,10 @@
-package py.edu.uc.lp3.rs.minecraft;
+package py.edu.uc.lp3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MinecraftApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {

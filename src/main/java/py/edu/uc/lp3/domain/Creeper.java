@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.rs.minecraft.modelo;
+package py.edu.uc.lp3.domain;
 
 public class Creeper extends Mob {
 

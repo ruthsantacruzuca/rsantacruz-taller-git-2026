@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.rs.minecraft.web;
+package py.edu.uc.lp3.rest.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -6,10 +6,10 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import py.edu.uc.lp3.rs.minecraft.modelo.Creeper;
-import py.edu.uc.lp3.rs.minecraft.modelo.Entidad;
-import py.edu.uc.lp3.rs.minecraft.modelo.Esqueleto;
-import py.edu.uc.lp3.rs.minecraft.modelo.Zombie;
+import py.edu.uc.lp3.domain.Creeper;
+import py.edu.uc.lp3.domain.Entidad;
+import py.edu.uc.lp3.domain.Esqueleto;
+import py.edu.uc.lp3.domain.Zombie;
 
 @RestController
 public class SonidoController {
