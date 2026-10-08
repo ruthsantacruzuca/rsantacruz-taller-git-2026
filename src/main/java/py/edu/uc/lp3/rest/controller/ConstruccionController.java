@@ -20,16 +20,17 @@ public class ConstruccionController {
             @RequestParam int vida,
             @RequestParam(required = false) Integer danoBase,
             @RequestParam(required = false) Integer velocidad,
-            @RequestParam(defaultValue = "0") int valorExtra) {
+            @RequestParam(defaultValue = "0") int valorExtra,
+            @RequestParam(defaultValue = "0") int distancia) {
         try {
             boolean ninguno = danoBase == null && velocidad == null;
             boolean completo = danoBase != null && velocidad != null;
             if (ninguno) {
-                return responder(FabricaEntidades.construir(tipo, vida), "simple (construir(tipo, vida))");
+                return responder(FabricaEntidades.construir(tipo, vida), "simple (construir(tipo, vida))", distancia);
             }
             if (completo) {
                 return responder(FabricaEntidades.construir(tipo, vida, danoBase, velocidad, valorExtra),
-                        "sobrecargado (construir(tipo, vida, danoBase, velocidad, valorExtra))");
+                        "sobrecargado (construir(tipo, vida, danoBase, velocidad, valorExtra))", distancia);
             }
             return ResponseEntity.badRequest().body(Map.of("error",
                     "Pasá danoBase y velocidad juntos (firma completa) o ninguno de los dos (firma simple)"));
@@ -38,7 +39,7 @@ public class ConstruccionController {
         }
     }
 
-    private ResponseEntity<Map<String, Object>> responder(Entidad entidad, String constructor) {
+    private ResponseEntity<Map<String, Object>> responder(Entidad entidad, String constructor, int distancia) {
         Map<String, Object> cuerpo = new LinkedHashMap<>();
         cuerpo.put("tipo", entidad.getClass().getSimpleName());
         cuerpo.put("constructor", constructor);
@@ -46,6 +47,8 @@ public class ConstruccionController {
         cuerpo.put("danoBase", entidad.getDanoBase());
         cuerpo.put("velocidad", entidad.getVelocidad());
         cuerpo.put("sonido", entidad.emitirSonido());
+        cuerpo.put("ataqueSinDatos", entidad.atacar());
+        cuerpo.put("ataqueConDistancia", entidad.atacar(distancia));
         return ResponseEntity.ok(cuerpo);
     }
 }

@@ -45,6 +45,18 @@ public abstract class Entidad {
         this.velocidad = validarVelocidad(velocidad);
     }
 
+    public String atacar() {
+        return "ataca con " + danoBase + " de daño";
+    }
+
+    public String atacar(int distancia) {
+        if (distancia < 0) {
+            throw new IllegalArgumentException("La distancia no puede ser negativa: " + distancia);
+        }
+        int danio = Math.max(0, danoBase - distancia / 10);
+        return "ataca desde " + distancia + " bloques con " + danio + " de daño";
+    }
+
     private static int validarVida(int vida) {
         if (vida < 0) {
             throw new IllegalArgumentException("La vida no puede ser negativa: " + vida);
