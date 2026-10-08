@@ -3,7 +3,7 @@
 API REST del modelado de entidades de **Minecraft** (Lenguaje de Programación 3, edición 2026).
 Ejercicio **POO-06**: paquetes, constructores, sobrecarga y sobreescritura.
 
-**Commit de la solución:** ver el enlace en [`ESPECIFICACIONES-POO-06.md`](ESPECIFICACIONES-POO-06.md) (también pegado en Classroom).
+**Commit de la solución:** [`84be129c56ed2cfef0fd97479a9a2b5d03fce5ee`](https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026/commit/84be129c56ed2cfef0fd97479a9a2b5d03fce5ee) — código, este README y `BITACORA.md` (el enlace también está en [`ESPECIFICACIONES-POO-06.md`](ESPECIFICACIONES-POO-06.md) y pegado en Classroom).
 
 ## Levantar
 
