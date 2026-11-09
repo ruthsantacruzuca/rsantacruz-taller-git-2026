@@ -1,6 +1,6 @@
 # Bitácora de uso de asistente de IA
 
-**Ejercicio:** POO-06 — Revisión, paquetes, constructores y sobrecarga
+**Ejercicios:** POO-06 (paquetes, constructores, sobrecarga y sobreescritura) y POO-08 (CRUD REST, H2, reglas de juego, excepciones e Insomnia)
 **Asignatura:** Lenguaje de Programación 3 (CYT646) — edición 2026
 **Estudiante:** Ruth Santacruz ([@ruthsantacruzuca](https://github.com/ruthsantacruzuca))
 
@@ -37,3 +37,39 @@ Agrupados por etapa, en orden aproximado de trabajo:
 - La **clave SSH** se generó en la terminal de la estudiante en su propia máquina (requisito del taller: fuera del sandbox del agente).
 - Las decisiones de modelado (qué clases, qué reglas de validación, nombres de los mensajes) y la **defensa oral** del ejercicio.
 - La revisión y aprobación de cada commit antes de pushear, y la entrega en Classroom.
+
+---
+
+# Bitácora — Ejercicio POO-08 (CRUD, H2, reglas, excepciones e Insomnia)
+
+## Datos de la asistencia
+
+| Dato | Valor |
+|---|---|
+| **Marca / asistente** | OpenCode (opencode.ai) |
+| **Modelo LLM exacto** | `opencode/big-pickle` |
+| **Entorno** | consola interactiva con acceso al terminal y a los archivos del repositorio |
+| **Repo** | `rsantacruz-taller-git-2026` |
+
+Sí se usó asistencia de IA también en este ejercicio. Esta sección resume los prompts en frases propias.
+
+## Resumen de los prompts (POO-08)
+
+1. **Leer el enunciado y la rúbrica.** Pedí traer el texto del ejercicio POO-08 y la rúbrica de ocho criterios, y listar qué piezas nuevas exige (JPA/H2, CRUD, dos reglas, simulación persistida, jerarquía de excepciones, interfaz, colección Insomnia).
+2. **Dependencias y H2.** Pedí agregar `spring-boot-starter-data-jpa` y el driver de H2, configurar la base en archivo, `ddl-auto` y la consola, y explicar cada propiedad en el README.
+3. **Persistencia de tres clases.** Pedí convertir la familia `Mob` con `Creeper` y `Zombie` en entidades JPA, con `SINGLE_TABLE` y columna discriminadora, manteniendo el constructor vacío en `protected` y el acceso por setters para que JPA no saltee las validaciones.
+4. **Interfaz de dominio.** Pedí una interfaz propia (`Danable`) implementada por dos familias (`Mob` y `Jugador`) y un endpoint de lectura que hable con el tipo de la interfaz.
+5. **Repositorios.** Pedí un repositorio Spring Data para la clase base y un par de mensajes de consulta declarados en la interfaz.
+6. **CRUD REST.** Pedí `POST`, `GET` de colección, `GET` por id, `PUT` y `DELETE`, con discriminación del subtipo en el JSON (Jackson) y `id` de solo lectura.
+7. **Dos reglas del juego.** Pedí modelar la explosión del creeper y la reacción en cadena como métodos del dominio, no del controller.
+8. **Simulación persistida.** Pedí un endpoint que dispare la simulación, devuelva el detalle (víctimas, vida antes/después) y deje el estado guardado para un `GET` posterior.
+9. **Excepciones y handlers.** Pedí una base y dos hijas con nombres de regla, un handler por tipo y códigos HTTP distintos (404 vs 422), justificando excepciones no comprobadas.
+10. **Tests.** Pedí tests del simulador (dos reglas y rechazo) y de la API con MockMvc (CRUD, POST ilegal, 404, 422 y endpoint de la interfaz).
+11. **Colección Insomnia.** Pedí el archivo exportado con entorno, CRUD, POST ilegal, id inexistente, endpoint de la interfaz, simulación y un pedido por cada excepción hija.
+12. **Documentación.** Pedí actualizar el README (arranque, propiedades de H2, diagrama Mermaid con tres clases, interfaz, repositorio, controller y excepciones, las dos reglas en una frase, respuestas a «Qué hay que pensar» e importación de Insomnia), la bitácora y las especificaciones para Classroom.
+13. **Verificación.** Pedí correr los tests, arrancar el servicio y recorrer por `curl` el CRUD, la simulación con cadena y cada error, y detener el proceso después.
+
+## Qué NO se delegó (POO-08)
+
+- Las decisiones de modelado (qué familia persistir, qué dos reglas contar, nombres de las excepciones) y la **defensa oral**.
+- La revisión de cada commit antes de pushear y la entrega en Classroom.
