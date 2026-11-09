@@ -10,6 +10,9 @@ public class IndexController {
     public String index() {
         return "Servicio vivo: API REST del modelo de entidades de Minecraft (Lenguaje de Programación 3 - 2026). "
                 + "Autor: Ruth Santacruz. "
-                + "Probar /api/minecraft/construir y /api/minecraft/sonidos.";
+                + "CRUD: /api/minecraft/mobs. Protocolo: /api/minecraft/danables. "
+                + "Simulación: POST /api/minecraft/simulaciones/explosion. "
+                + "Consola H2: /h2-console. "
+                + "También /api/minecraft/construir y /api/minecraft/sonidos.";
     }
 }
