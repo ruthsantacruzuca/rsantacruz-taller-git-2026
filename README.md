@@ -3,7 +3,7 @@
 API REST del modelado de entidades de **Minecraft** (Lenguaje de Programación 3, edición 2026).
 Ejercicio **POO-08**: CRUD REST, persistencia en **H2**, reglas de juego, simulación, jerarquía de excepciones, protocolo de dominio y colección de **Insomnia**. Continúa el modelado de POO-06 (paquetes, constructores, sobrecarga y sobreescritura).
 
-**Commit de la solución:** se indica en [`ESPECIFICACIONES-POO-08.md`](ESPECIFICACIONES-POO-08.md) y en Classroom.
+**Commit de la solución:** [`10e9bbfdf34e932196cc6f88eb67c8243c21dfe1`](https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026/commit/10e9bbfdf34e932196cc6f88eb67c8243c21dfe1) — código, este README, `BITACORA.md`, la colección de Insomnia y las especificaciones (el enlace también está en [`ESPECIFICACIONES-POO-08.md`](ESPECIFICACIONES-POO-08.md) y pegado en Classroom).
 
 ## Levantar
 

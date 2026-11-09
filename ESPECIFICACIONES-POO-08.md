@@ -6,7 +6,11 @@
 **Repositorio:** [`rsantacruz-taller-git-2026`](https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026)
 **Dominio elegido:** entidades de **Minecraft**
 
-**Enlace exacto al commit de la solución:** se completa en el commit siguiente (también pegado en Classroom).
+**Enlace exacto al commit de la solución:**
+
+```
+https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026/commit/10e9bbfdf34e932196cc6f88eb67c8243c21dfe1
+```
 
 ---
 
