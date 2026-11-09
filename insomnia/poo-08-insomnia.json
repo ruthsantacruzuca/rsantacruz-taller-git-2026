@@ -1,0 +1,319 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-11-09T00:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:poo-08",
+  "resources": [
+    {
+      "_id": "wrk_poo08",
+      "parentId": null,
+      "modified": 0,
+      "created": 0,
+      "name": "POO-08 Minecraft - CRUD, H2, reglas y excepciones",
+      "description": "Coleccion del ejercicio POO-08. Orden recomendado en el README.",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "env_base",
+      "parentId": "wrk_poo08",
+      "modified": 0,
+      "created": 0,
+      "name": "Base",
+      "data": {
+        "base_url": "http://localhost:8080",
+        "creeper_id": 1,
+        "zombie_id": 2
+      },
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 0,
+      "_type": "environment"
+    },
+    {
+      "_id": "fld_crud",
+      "parentId": "wrk_poo08",
+      "modified": 0,
+      "created": 0,
+      "name": "1 - CRUD mobs",
+      "description": "Crear, leer, actualizar y borrar sobre la familia Mob.",
+      "metaSortKey": 0,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_post_creeper",
+      "parentId": "fld_crud",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs",
+      "name": "01 POST crear creeper (valido)",
+      "description": "Crea un Creeper con carga 24. Copiar el id devuelto en la variable creeper_id.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"tipo\":\"CREEPER\",\"vida\":20,\"danoBase\":6,\"velocidad\":3,\"cargaExplosion\":24}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "req_post_zombie",
+      "parentId": "fld_crud",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs",
+      "name": "02 POST crear zombie (valido)",
+      "description": "Crea un Zombie. Copiar el id devuelto en la variable zombie_id.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"tipo\":\"ZOMBIE\",\"vida\":20,\"danoBase\":4,\"velocidad\":3}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 1,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_mobs",
+      "parentId": "fld_crud",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs",
+      "name": "03 GET coleccion",
+      "description": "Lista lo persistido en H2.",
+      "method": "GET",
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 2,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_creeper",
+      "parentId": "fld_crud",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs/{{ _.creeper_id }}",
+      "name": "04 GET creeper por id",
+      "description": "Lee un item con su identificador.",
+      "method": "GET",
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 3,
+      "_type": "request"
+    },
+    {
+      "_id": "req_put_creeper",
+      "parentId": "fld_crud",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs/{{ _.creeper_id }}",
+      "name": "05 PUT actualizar creeper",
+      "description": "Reemplaza el recurso completo; un campo omitido queda en su valor por defecto.",
+      "method": "PUT",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"tipo\":\"CREEPER\",\"vida\":8,\"danoBase\":6,\"velocidad\":3,\"cargaExplosion\":10}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 4,
+      "_type": "request"
+    },
+    {
+      "_id": "req_delete_zombie",
+      "parentId": "fld_crud",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs/{{ _.zombie_id }}",
+      "name": "06 DELETE zombie",
+      "description": "Borra y responde 204; un GET posterior es 404.",
+      "method": "DELETE",
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 5,
+      "_type": "request"
+    },
+    {
+      "_id": "fld_errores",
+      "parentId": "wrk_poo08",
+      "modified": 0,
+      "created": 0,
+      "name": "2 - Errores de construccion",
+      "description": "Un POST ilegal y un id inexistente.",
+      "metaSortKey": 1,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_post_ilegal",
+      "parentId": "fld_errores",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs",
+      "name": "07 POST ilegal (vida negativa)",
+      "description": "Rompe el invariante de vida. Esperado: 400 y la coleccion no crece.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"tipo\":\"ZOMBIE\",\"vida\":-5,\"danoBase\":4,\"velocidad\":3}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "req_get_inexistente",
+      "parentId": "fld_errores",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs/999999",
+      "name": "08 GET id inexistente",
+      "description": "Esperado: 404 recurso-no-encontrado.",
+      "method": "GET",
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 1,
+      "_type": "request"
+    },
+    {
+      "_id": "fld_protocolo",
+      "parentId": "wrk_poo08",
+      "modified": 0,
+      "created": 0,
+      "name": "3 - Protocolo Danable",
+      "description": "Endpoint de lectura que usa la interfaz entre familias distintas.",
+      "metaSortKey": 2,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_get_danables",
+      "parentId": "fld_protocolo",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/danables",
+      "name": "09 GET danables (interfaz)",
+      "description": "Lista Mob y Jugador hablando con el tipo Danable.",
+      "method": "GET",
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "fld_simulacion",
+      "parentId": "wrk_poo08",
+      "modified": 0,
+      "created": 0,
+      "name": "4 - Simulacion",
+      "description": "Explosiones persistidas con las dos reglas del juego.",
+      "metaSortKey": 3,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_simular",
+      "parentId": "fld_simulacion",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/simulaciones/explosion",
+      "name": "10 POST simular explosion",
+      "description": "El creeper detona, reparte su carga y persiste el estado. Un GET posterior muestra el resultado.",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"creeperId\":{{ _.creeper_id }}}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "fld_excepciones",
+      "parentId": "wrk_poo08",
+      "modified": 0,
+      "created": 0,
+      "name": "5 - Una excepcion hija por pedido",
+      "description": "Cada hija de la jerarquia tiene su handler y su codigo HTTP.",
+      "metaSortKey": 4,
+      "_type": "request_group"
+    },
+    {
+      "_id": "req_exc_recurso",
+      "parentId": "fld_excepciones",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/mobs/999999",
+      "name": "11 Hija 1: RecursoNoEncontrado (404)",
+      "description": "Handler de RecursoNoEncontradoException: 404 con tipo recurso-no-encontrado.",
+      "method": "GET",
+      "parameters": [],
+      "headers": [],
+      "authentication": {},
+      "metaSortKey": 0,
+      "_type": "request"
+    },
+    {
+      "_id": "req_exc_regla",
+      "parentId": "fld_excepciones",
+      "modified": 0,
+      "created": 0,
+      "url": "{{ _.base_url }}/api/minecraft/simulaciones/explosion",
+      "name": "12 Hija 2: ReglaDeJuego (422)",
+      "description": "Handler de ReglaDeJuegoException: 422 con tipo regla-de-juego (el id apunta a un Zombie, no a un Creeper).",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\"creeperId\":{{ _.zombie_id }}}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {},
+      "metaSortKey": 1,
+      "_type": "request"
+    }
+  ]
+}
