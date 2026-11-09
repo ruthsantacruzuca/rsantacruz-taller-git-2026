@@ -1,5 +1,8 @@
 package py.edu.uc.lp3.domain;
 
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Entidad {
 
     public static final int DANO_BASE_POR_DEFECTO = 1;
@@ -10,6 +13,10 @@ public abstract class Entidad {
     private int velocidad;
 
     public abstract String emitirSonido();
+
+    /** JPA instancia por reflexión; queda protegido para no abrir el ocultamiento. */
+    protected Entidad() {
+    }
 
     public Entidad(int vida) {
         this(vida, DANO_BASE_POR_DEFECTO, VELOCIDAD_POR_DEFECTO);

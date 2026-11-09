@@ -1,12 +1,26 @@
 package py.edu.uc.lp3.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("ZOMBIE")
 public class Zombie extends Mob {
+
+    protected Zombie() {
+    }
 
     public Zombie(int vida) {
         super(vida, true);
     }
 
-    public Zombie(int vida, int danoBase, int velocidad) {
+    @JsonCreator
+    public Zombie(@JsonProperty("vida") int vida,
+                  @JsonProperty("danoBase") int danoBase,
+                  @JsonProperty("velocidad") int velocidad) {
         super(vida, danoBase, velocidad, true);
     }
 
