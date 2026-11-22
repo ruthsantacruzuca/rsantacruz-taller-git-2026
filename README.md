@@ -7,7 +7,63 @@ Ejercicio **POO-08**: CRUD REST, persistencia en **H2**, reglas de juego, simula
 
 ## Corrección de POO-08
 
-POO-08 tuvo observaciones en los criterios 2 (capa `service`) y 3 (un Creeper explotado se podía revivir con `PUT`). Las dos quedaron cerradas: las validaciones, reglas y excepciones viven en `service`, y un `PUT` sobre un Creeper con `explotado = true` responde **409**. El detalle de cada observación, la evidencia y cómo probarlo está en [`CORRECCION-POO-08.md`](CORRECCION-POO-08.md).
+POO-08 tuvo observaciones en los criterios 2 (capa `service`) y 3 (un Creeper explotado se podía revivir con `PUT`). Las dos quedaron cerradas: las validaciones, reglas y excepciones viven en `service`, y un `PUT` sobre un Creeper con `explotado = true` responde **409**. El detalle de cada observación, la evidencia y cómo probarlo está en [`CORRECCION-POO-08.md`](CORRECCION-POO-08.md). Por lo tanto la corrección de POO-08 de POO-09 tiene los 3 puntos.
+
+## POO-09 — APIs cruzadas
+
+**Commit de la solución POO-09:** [`99d8c29d4ef4ef901e1cb5ad41379bfe1010e6dd`](https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026/commit/99d8c29d4ef4ef901e1cb5ad41379bfe1010e6dd). El OpenAPI se publicó en el commit anterior [`fc038fb`](https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026/commit/fc038fb).
+
+### Mapa del grupo
+
+En el reparto del grupo figuré como **A2**, pero la consigna dice que cada estudiante es **A1 de su propia entrega**; en esta entrega yo soy A1 y consulto a Matías y Sebastián.
+
+| Rol en **mi entrega** | Estudiante | Repositorio | Base | OpenAPI | Reglas que publica |
+|---|---|---|---|---|---|
+| **A1** | Ruth Santacruz (yo) | `ruthsantacruzuca/rsantacruz-taller-git-2026` | `http://localhost:8080` | `http://localhost:8080/v3/api-docs` ([UI](http://localhost:8080/swagger-ui.html), [copia versionada](docs/openapi/poo-09-openapi.json)) | Explosión con carga repartida como daño y reacción en cadena; Creeper explotado rechaza `PUT` con `409`. |
+| **A2** | Matías Duarte | [`Cemelele/mfdc-taller-git-2026`](https://github.com/Cemelele/mfdc-taller-git-2026) | `http://localhost:8081` | `http://localhost:8081/v3/api-docs` (a publicar por A2) | **1)** Electrificación: un rayo carga el Creeper y el daño base pasa de 15 a 25. **2)** Simulación con ciclo irreversible: daño decreciente por distancia dentro del radio; el Creeper muere y no puede explotar ni revivir otra vez (`409`). |
+| **A3** | Sebastián Gómez de la Fuente | [`SGDFM/sgomezdelafuente-talle-git-2026`](https://github.com/SGDFM/sgomezdelafuente-talle-git-2026) | `http://localhost:8082` | `http://localhost:8082/v3/api-docs` (a publicar por A3) | **1)** El Creeper solo detona si está vivo y su carga es ≥ 3; el daño base es `cargaExplosion * 4`. **2)** Una entidad viva solo recibe daño si su distancia de Manhattan al Creeper no supera el radio; el Jugador reduce el daño según su armadura. |
+
+A2 y A3 son los dos consumos ajenos; mi servicio no cuenta como uno de ellos. Sus repositorios son de **Minecraft**, el mismo juego que este servicio. Al 22/11 esos dos repos aún no tenían `springdoc`, así que el primer contacto fue leer sus README y probar sus endpoints; las URL de OpenAPI quedan declaradas para cuando las publiquen. El consumo no copió código ajeno: este proyecto construye los JSON desde los contratos HTTP documentados.
+
+### Cómo arrancar los tres servicios
+
+```bash
+# A1 (este repo), puerto 8080
+./mvnw spring-boot:run
+
+# A2, puerto 8081
+cd /ruta/a/mfdc-taller-git-2026
+./mvnw spring-boot:run -Dspring-boot.run.arguments=--server.port=8081
+
+# A3, puerto 8082
+cd /ruta/a/sgomezdelafuente-talle-git-2026
+./mvnw spring-boot:run -Dspring-boot.run.arguments=--server.port=8082
+```
+
+Las URLs de los compañeros se configuran con properties o variables de entorno (no están quemadas en el código):
+
+```properties
+companeros.a2.base-url=${A2_BASE_URL:http://localhost:8081}
+companeros.a3.base-url=${A3_BASE_URL:http://localhost:8082}
+```
+
+### Escenario propio
+
+**Detonación verificada:** A2 valida el ciclo de vida irreversible y el daño por distancia, A3 valida la carga mínima y el radio de alcance, y A1 guarda la jugada en su H2 solo si los dos aceptan.
+
+`POST /api/minecraft/escenarios/verificado` llama primero a A2 (`POST /api/simulaciones/explosion`) y después a A3 (`POST /minecraft/sgomezdelafuente/simulaciones/explosion`). A2 va primero porque su regla de ciclo de vida es la que produce el `409` más costoso de dejar para el final; A3 cierra la validación justo antes de que A1 persista. Con éxito responde `201` y la jugada se lee con `GET /api/minecraft/escenarios`. Si A2 o A3 rechaza, A1 no inserta nada y responde el código del compañero con un JSON que incluye `companero`, `codigoCompanero` y `detalleCompanero`. No se propagó el código crudo ajeno sin identificación: se traduce a la jerarquía propia con `tipo: rechazo-companero`, conservando código y cuerpo para que se vea quién falló. Si el compañero no responde, el código es `502`.
+
+```bash
+curl -X POST localhost:8080/api/minecraft/escenarios/verificado \
+  -H 'Content-Type: application/json' \
+  -d '{"descripcion":"Triple detonacion verificada",
+       "a2":{"creeperId":1,"cargado":true,"victimas":[{"hostilId":2,"distancia":1.5}]},
+       "a3":{"creeperId":1,"jugadorId":2,"zombieId":3,"radio":5}}'
+
+curl localhost:8080/api/minecraft/escenarios
+```
+
+La colección [`insomnia/poo-09-insomnia.json`](insomnia/poo-09-insomnia.json) trae el entorno con las tres bases, los pedidos para crear entidades en A2 y A3, el escenario feliz, el `GET` de persistencia y un rechazo por cada compañero, con respuestas de ejemplo exportadas. El enunciado aplicado está en [`ESPECIFICACIONES-POO-09.md`](ESPECIFICACIONES-POO-09.md).
 
 ## Levantar
 

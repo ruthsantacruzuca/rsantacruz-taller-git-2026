@@ -82,3 +82,39 @@ Después de la devolución del corrector (19/24, con los criterios 2 y 3 en 1 y 
 
 - Las decisiones de modelado (qué familia persistir, qué dos reglas contar, nombres de las excepciones) y la **defensa oral**.
 - La revisión de cada commit antes de pushear y la entrega en Classroom.
+
+---
+
+# Bitácora — Ejercicio POO-09 (APIs cruzadas)
+
+## Datos de la asistencia
+
+| Dato | Valor |
+|---|---|
+| **Marca / asistente** | OpenCode (opencode.ai) |
+| **Modelo LLM exacto** | `opencode/big-pickle` |
+| **Entorno** | consola interactiva con acceso al terminal, a los archivos del repositorio y a la web |
+| **Repo** | `rsantacruz-taller-git-2026` |
+
+Sí se usó asistencia de IA también en este ejercicio. Esta sección resume los prompts en frases propias.
+
+## Resumen de los prompts (POO-09)
+
+1. **Leer el enunciado y los documentos del grupo.** Pedí traer el enunciado de APIs cruzadas, el listado de grupos y el ejemplo con UNO, y extraer los entregables, el puntaje de 15 y la diferencia con la rúbrica de 24.
+2. **Confirmar el mapa A1/A2/A3.** Aporté los repos de Matías Duarte y Sebastián Gómez y aclaré que, aunque en el reparto figure como A2, en mi entrega soy A1 y los otros dos son mis consumos.
+3. **Leer contratos ajenos.** Pedí abrir los README de los dos compañeros, citar sus dos reglas en una frase y detectar que todavía no publicaban OpenAPI; por eso definí las URL previstas y documenté el primer contacto.
+4. **Diseñar el escenario.** Pedí una detonación de Creeper que necesite las dos validaciones ajenas, con persistencia condicional en mi H2 y atribución del rechazo.
+5. **OpenAPI propio.** Pedí agregar Springdoc, publicar `/v3/api-docs` y `/swagger-ui.html`, annotar CRUD, simulación y escenario con descripciones y códigos de error, y guardar una copia versionada del JSON.
+6. **Clientes HTTP.** Pedí dos clientes con `RestClient`, URLs configuradas por properties/variables de entorno y lectura del código y cuerpo devueltos por cada compañero, incluso en respuestas de error.
+7. **Endpoint y persistencia.** Pedí `POST /api/minecraft/escenarios/verificado`, una entidad JPA para la jugada, un `GET` posterior y que un rechazo no inserte filas.
+8. **Manejo de errores.** Pedí traducir el rechazo ajeno a `tipo: rechazo-companero`, conservando `companero`, `codigoCompanero` y `detalleCompanero`, y usar `502` si el compañero no responde.
+9. **Tests.** Pedí tests del service y de la API para el escenario feliz, el rechazo de A2 y el rechazo de A3, comprobando que la base queda igual.
+10. **Insomnia y documentación.** Pedí la colección con entorno para tres bases, creación de datos ajenos, escenario feliz, rechazo por cada compañero y respuestas de ejemplo; también README, bitácora y el Markdown aplicado.
+11. **Verificación real.** Pedí arrancar los tres servicios en 8080/8081/8082, crear entidades, ejecutar los tres casos y comprobar por `curl` que el feliz persiste y los rechazos no.
+12. **Cierre.** Pedí separar los commits y dejar el enlace exacto al commit de la solución en el README y en las especificaciones.
+
+## Qué NO se delegó (POO-09)
+
+- Las decisiones de modelado, el orden de las validaciones y la **defensa oral**.
+- La revisión de los commits antes de pushear y la entrega en Classroom.
+
