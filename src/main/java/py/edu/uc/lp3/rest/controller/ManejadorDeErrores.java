@@ -9,6 +9,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import py.edu.uc.lp3.service.exception.CompaneroRechazoException;
 import py.edu.uc.lp3.service.exception.CreeperConsumidoException;
 import py.edu.uc.lp3.service.exception.DominioException;
 import py.edu.uc.lp3.service.exception.RecursoNoEncontradoException;
@@ -37,6 +38,15 @@ public class ManejadorDeErrores {
     public ResponseEntity<Map<String, Object>> creeperConsumido(CreeperConsumidoException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(cuerpo("creeper-consumido", ex.getMessage()));
+    }
+
+    @ExceptionHandler(CompaneroRechazoException.class)
+    public ResponseEntity<Map<String, Object>> companeroRechazo(CompaneroRechazoException ex) {
+        Map<String, Object> cuerpo = cuerpo("rechazo-companero", ex.getMessage());
+        cuerpo.put("companero", ex.getCompanero());
+        cuerpo.put("codigoCompanero", ex.getCodigoCompanero());
+        cuerpo.put("detalleCompanero", ex.getDetalleCompanero());
+        return ResponseEntity.status(ex.getEstadoHttp()).body(cuerpo);
     }
 
     @ExceptionHandler(DominioException.class)
