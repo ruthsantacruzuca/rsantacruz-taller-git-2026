@@ -9,7 +9,7 @@
 **Enlace exacto al commit de la solución:**
 
 ```
-https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026/commit/10e9bbfdf34e932196cc6f88eb67c8243c21dfe1
+https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026/commit/a76999efba2e2e893fc982df54013f2334fba5d4
 ```
 
 ---
