@@ -11,7 +11,7 @@ public class ZombiePequeno extends Zombie {
 
     public ZombiePequeno(int vida, int danoBase, int velocidad, int velocidadAumentada) {
         super(vida, danoBase, velocidad);
-        setVelocidadAumentada(velocidadAumentada);
+        this.velocidadAumentada = velocidadAumentada;
     }
 
     @Override
@@ -24,9 +24,6 @@ public class ZombiePequeno extends Zombie {
     }
 
     public void setVelocidadAumentada(int velocidadAumentada) {
-        if (velocidadAumentada < 0) {
-            throw new IllegalArgumentException("La velocidad aumentada no puede ser negativa: " + velocidadAumentada);
-        }
         this.velocidadAumentada = velocidadAumentada;
     }
 

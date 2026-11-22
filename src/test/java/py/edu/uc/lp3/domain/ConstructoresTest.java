@@ -2,7 +2,6 @@ package py.edu.uc.lp3.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -17,6 +16,7 @@ class ConstructoresTest {
         assertEquals(Entidad.DANO_BASE_POR_DEFECTO, creeper.getDanoBase());
         assertEquals(Entidad.VELOCIDAD_POR_DEFECTO, creeper.getVelocidad());
         assertEquals(12, creeper.getCargaExplosion());
+        assertFalse(creeper.isExplotado());
     }
 
     @Test
@@ -35,15 +35,8 @@ class ConstructoresTest {
     }
 
     @Test
-    void constructorSimpleDeJugadorHeredaElLimiteDeVida() {
+    void constructorSimpleDeJugadorRespetaLaVidaMaxima() {
         assertEquals(20, new Jugador(20).getVida());
-        assertThrows(IllegalArgumentException.class, () -> new Jugador(25));
-    }
-
-    @Test
-    void todaLaJerarquiaRechazaVidaNegativa() {
-        assertThrows(IllegalArgumentException.class, () -> new Zombie(-1));
-        assertThrows(IllegalArgumentException.class, () -> new Esqueleto(-1));
-        assertThrows(IllegalArgumentException.class, () -> new Jugador(-1));
+        assertEquals(Jugador.VIDA_MAXIMA, new Jugador(20).getVida());
     }
 }

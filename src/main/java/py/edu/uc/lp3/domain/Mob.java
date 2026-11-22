@@ -78,14 +78,6 @@ public class Mob extends Entidad implements Danable {
     }
 
     @Override
-    public void recibirDano(int dano) {
-        if (dano < 0) {
-            throw new IllegalArgumentException("El daño recibido no puede ser negativo: " + dano);
-        }
-        setVida(Math.max(0, getVida() - dano));
-    }
-
-    @Override
     public String estado() {
         return getClass().getSimpleName() + " con " + getVida() + " de vida";
     }

@@ -33,12 +33,4 @@ public class Zombie extends Mob {
     public String atacar() {
         return "muerde con las dos manos y hace " + getDanoBase() + " de daño";
     }
-
-    public String atacar(Jugador jugador) {
-        if (jugador == null) {
-            throw new IllegalArgumentException("No se puede atacar a un jugador nulo");
-        }
-        jugador.recibirDano(getDanoBase());
-        return "muerde al jugador y le queda " + jugador.getVida() + " de vida";
-    }
 }

@@ -90,7 +90,7 @@ class ApiTest {
                                 {"tipo":"ZOMBIE","vida":-5,"danoBase":4,"velocidad":3}
                                 """))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.tipo").value("json-ilegible"));
+                .andExpect(jsonPath("$.tipo").value("argumento-invalido"));
 
         mockMvc.perform(get("/api/minecraft/mobs"))
                 .andExpect(jsonPath("$", hasSize(0)));
@@ -118,6 +118,28 @@ class ApiTest {
 
         mockMvc.perform(get("/api/minecraft/mobs/{id}", zombie.getId()))
                 .andExpect(jsonPath("$.vida").value(0));
+    }
+
+    @Test
+    void putSobreCreeperExplotadoDevuelve409YNoLoRevive() throws Exception {
+        Creeper creeper = mobs.save(new Creeper(20, 6, 3, 24));
+
+        mockMvc.perform(post("/api/minecraft/simulaciones/explosion")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"creeperId\":" + creeper.getId() + "}"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(put("/api/minecraft/mobs/{id}", creeper.getId())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"tipo":"CREEPER","vida":20,"danoBase":6,"velocidad":3,"cargaExplosion":10}
+                                """))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.tipo").value("creeper-consumido"));
+
+        mockMvc.perform(get("/api/minecraft/mobs/{id}", creeper.getId()))
+                .andExpect(jsonPath("$.vida").value(0))
+                .andExpect(jsonPath("$.explotado").value(true));
     }
 
     @Test

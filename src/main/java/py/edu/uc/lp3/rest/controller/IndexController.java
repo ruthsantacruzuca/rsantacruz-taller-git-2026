@@ -12,6 +12,7 @@ public class IndexController {
                 + "Autor: Ruth Santacruz. "
                 + "CRUD: /api/minecraft/mobs. Protocolo: /api/minecraft/danables. "
                 + "Simulación: POST /api/minecraft/simulaciones/explosion. "
+                + "Capa service: validaciones, reglas y excepciones. "
                 + "Consola H2: /h2-console. "
                 + "También /api/minecraft/construir y /api/minecraft/sonidos.";
     }

@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.domain.exception;
+package py.edu.uc.lp3.service.exception;
 
 /**
  * Raíz de la jerarquía de excepciones del dominio.

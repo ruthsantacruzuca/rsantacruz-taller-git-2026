@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.edu.uc.lp3.domain.Jugador;
-import py.edu.uc.lp3.repository.JugadorRepository;
+import py.edu.uc.lp3.service.JugadorService;
 
 @RestController
 @RequestMapping("/api/minecraft/jugadores")
 public class JugadorController {
 
-    private final JugadorRepository repositorio;
+    private final JugadorService service;
 
-    public JugadorController(JugadorRepository repositorio) {
-        this.repositorio = repositorio;
+    public JugadorController(JugadorService service) {
+        this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<Jugador> crear(@RequestBody Jugador jugador) {
-        Jugador guardado = repositorio.save(jugador);
+        Jugador guardado = service.crear(jugador);
         return ResponseEntity.created(URI.create("/api/minecraft/jugadores/" + guardado.getId())).body(guardado);
     }
 
     @GetMapping
     public List<Jugador> listar() {
-        return repositorio.findAll();
+        return service.listar();
     }
 }

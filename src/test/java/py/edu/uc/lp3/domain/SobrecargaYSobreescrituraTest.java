@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
+import py.edu.uc.lp3.service.ValidadorMinecraft;
+
 class SobrecargaYSobreescrituraTest {
 
     @Test
@@ -20,9 +22,8 @@ class SobrecargaYSobreescrituraTest {
     }
 
     @Test
-    void atacarConDistanciaRechazaDistanciaNegativa() {
-        Entidad entidad = new Zombie(20, 4, 3);
-        assertThrows(IllegalArgumentException.class, () -> entidad.atacar(-1));
+    void elServiceRechazaDistanciaNegativa() {
+        assertThrows(IllegalArgumentException.class, () -> ValidadorMinecraft.validarDistancia(-1));
     }
 
     @Test

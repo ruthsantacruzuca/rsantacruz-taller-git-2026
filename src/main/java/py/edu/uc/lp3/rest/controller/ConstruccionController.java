@@ -9,10 +9,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import py.edu.uc.lp3.domain.Entidad;
-import py.edu.uc.lp3.domain.FabricaEntidades;
+import py.edu.uc.lp3.service.ConstruccionService;
+import py.edu.uc.lp3.service.ConstruccionService.Construccion;
 
 @RestController
 public class ConstruccionController {
+
+    private final ConstruccionService service;
+
+    public ConstruccionController(ConstruccionService service) {
+        this.service = service;
+    }
 
     @GetMapping("/api/minecraft/construir")
     public ResponseEntity<Map<String, Object>> construir(
@@ -22,33 +29,21 @@ public class ConstruccionController {
             @RequestParam(required = false) Integer velocidad,
             @RequestParam(defaultValue = "0") int valorExtra,
             @RequestParam(defaultValue = "0") int distancia) {
-        try {
-            boolean ninguno = danoBase == null && velocidad == null;
-            boolean completo = danoBase != null && velocidad != null;
-            if (ninguno) {
-                return responder(FabricaEntidades.construir(tipo, vida), "simple (construir(tipo, vida))", distancia);
-            }
-            if (completo) {
-                return responder(FabricaEntidades.construir(tipo, vida, danoBase, velocidad, valorExtra),
-                        "sobrecargado (construir(tipo, vida, danoBase, velocidad, valorExtra))", distancia);
-            }
-            return ResponseEntity.badRequest().body(Map.of("error",
-                    "Pasá danoBase y velocidad juntos (firma completa) o ninguno de los dos (firma simple)"));
-        } catch (IllegalArgumentException ex) {
-            return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
-        }
+        Construccion construccion = service.construir(tipo, vida, danoBase, velocidad, valorExtra, distancia);
+        return ResponseEntity.ok(responder(construccion, distancia));
     }
 
-    private ResponseEntity<Map<String, Object>> responder(Entidad entidad, String constructor, int distancia) {
+    private Map<String, Object> responder(Construccion construccion, int distancia) {
+        Entidad entidad = construccion.entidad();
         Map<String, Object> cuerpo = new LinkedHashMap<>();
         cuerpo.put("tipo", entidad.getClass().getSimpleName());
-        cuerpo.put("constructor", constructor);
+        cuerpo.put("constructor", construccion.constructor());
         cuerpo.put("vida", entidad.getVida());
         cuerpo.put("danoBase", entidad.getDanoBase());
         cuerpo.put("velocidad", entidad.getVelocidad());
         cuerpo.put("sonido", entidad.emitirSonido());
         cuerpo.put("ataqueSinDatos", entidad.atacar());
         cuerpo.put("ataqueConDistancia", entidad.atacar(distancia));
-        return ResponseEntity.ok(cuerpo);
+        return cuerpo;
     }
 }

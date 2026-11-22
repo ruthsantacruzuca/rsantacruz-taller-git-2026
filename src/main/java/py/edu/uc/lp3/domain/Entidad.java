@@ -2,6 +2,10 @@ package py.edu.uc.lp3.domain;
 
 import jakarta.persistence.MappedSuperclass;
 
+/**
+ * Estado común de las entidades. Las validaciones viven en la capa service;
+ * esta clase sólo guarda y expone los valores.
+ */
 @MappedSuperclass
 public abstract class Entidad {
 
@@ -23,9 +27,9 @@ public abstract class Entidad {
     }
 
     public Entidad(int vida, int danoBase, int velocidad) {
-        this.vida = validarVida(vida);
-        this.danoBase = validarDanoBase(danoBase);
-        this.velocidad = validarVelocidad(velocidad);
+        this.vida = vida;
+        this.danoBase = danoBase;
+        this.velocidad = velocidad;
     }
 
     public int getVida() {
@@ -41,15 +45,15 @@ public abstract class Entidad {
     }
 
     public void setVida(int vida) {
-        this.vida = validarVida(vida);
+        this.vida = vida;
     }
 
     public void setDanoBase(int danoBase) {
-        this.danoBase = validarDanoBase(danoBase);
+        this.danoBase = danoBase;
     }
 
     public void setVelocidad(int velocidad) {
-        this.velocidad = validarVelocidad(velocidad);
+        this.velocidad = velocidad;
     }
 
     public String atacar() {
@@ -57,31 +61,8 @@ public abstract class Entidad {
     }
 
     public String atacar(int distancia) {
-        if (distancia < 0) {
-            throw new IllegalArgumentException("La distancia no puede ser negativa: " + distancia);
-        }
-        int danio = Math.max(0, danoBase - distancia / 10);
+        int distanciaEfectiva = Math.max(0, distancia);
+        int danio = Math.max(0, danoBase - distanciaEfectiva / 10);
         return "ataca desde " + distancia + " bloques con " + danio + " de daño";
-    }
-
-    private static int validarVida(int vida) {
-        if (vida < 0) {
-            throw new IllegalArgumentException("La vida no puede ser negativa: " + vida);
-        }
-        return vida;
-    }
-
-    private static int validarDanoBase(int danoBase) {
-        if (danoBase < 0) {
-            throw new IllegalArgumentException("El daño base no puede ser negativo: " + danoBase);
-        }
-        return danoBase;
-    }
-
-    private static int validarVelocidad(int velocidad) {
-        if (velocidad < 0) {
-            throw new IllegalArgumentException("La velocidad no puede ser negativa: " + velocidad);
-        }
-        return velocidad;
     }
 }

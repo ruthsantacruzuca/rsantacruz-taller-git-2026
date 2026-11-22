@@ -9,12 +9,13 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import py.edu.uc.lp3.domain.exception.DominioException;
-import py.edu.uc.lp3.domain.exception.RecursoNoEncontradoException;
-import py.edu.uc.lp3.domain.exception.ReglaDeJuegoException;
+import py.edu.uc.lp3.service.exception.CreeperConsumidoException;
+import py.edu.uc.lp3.service.exception.DominioException;
+import py.edu.uc.lp3.service.exception.RecursoNoEncontradoException;
+import py.edu.uc.lp3.service.exception.ReglaDeJuegoException;
 
 /**
- * Un handler por tipo de la jerarquía de excepciones del dominio. Las hermanas
+ * Un handler por tipo de la jerarquía de excepciones del service. Las hermanas
  * se distinguen por el código HTTP y por el campo "tipo" del JSON.
  */
 @RestControllerAdvice
@@ -30,6 +31,12 @@ public class ManejadorDeErrores {
     public ResponseEntity<Map<String, Object>> reglaDeJuego(ReglaDeJuegoException ex) {
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
                 .body(cuerpo("regla-de-juego", ex.getMessage()));
+    }
+
+    @ExceptionHandler(CreeperConsumidoException.class)
+    public ResponseEntity<Map<String, Object>> creeperConsumido(CreeperConsumidoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(cuerpo("creeper-consumido", ex.getMessage()));
     }
 
     @ExceptionHandler(DominioException.class)

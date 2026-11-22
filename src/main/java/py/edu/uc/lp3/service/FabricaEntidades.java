@@ -1,5 +1,18 @@
-package py.edu.uc.lp3.domain;
+package py.edu.uc.lp3.service;
 
+import py.edu.uc.lp3.domain.Aldeano;
+import py.edu.uc.lp3.domain.Cerdo;
+import py.edu.uc.lp3.domain.Creeper;
+import py.edu.uc.lp3.domain.Entidad;
+import py.edu.uc.lp3.domain.Esqueleto;
+import py.edu.uc.lp3.domain.Jugador;
+import py.edu.uc.lp3.domain.Zombie;
+import py.edu.uc.lp3.domain.ZombiePequeno;
+
+/**
+ * Fábrica de POO-06, ahora en la capa service. El dominio no conoce el tipo
+ * pedido por URL ni lanza excepciones por un tipo desconocido.
+ */
 public final class FabricaEntidades {
 
     private FabricaEntidades() {

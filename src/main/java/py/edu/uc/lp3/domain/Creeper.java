@@ -12,6 +12,7 @@ public class Creeper extends Mob {
 
     private static final int CARGA_EXPLOSION_POR_DEFECTO = 12;
     private int cargaExplosion;
+    private boolean explotado;
 
     protected Creeper() {
     }
@@ -26,7 +27,7 @@ public class Creeper extends Mob {
                    @JsonProperty("velocidad") int velocidad,
                    @JsonProperty("cargaExplosion") int cargaExplosion) {
         super(vida, danoBase, velocidad, true);
-        setCargaExplosion(cargaExplosion);
+        this.cargaExplosion = cargaExplosion;
     }
 
     @Override
@@ -39,24 +40,15 @@ public class Creeper extends Mob {
     }
 
     public void setCargaExplosion(int cargaExplosion) {
-        if (cargaExplosion < 0) {
-            throw new IllegalArgumentException("La carga de explosión no puede ser negativa: " + cargaExplosion);
-        }
         this.cargaExplosion = cargaExplosion;
     }
 
-    public void aumentarCarga(int cantidad) {
-        if (cantidad <= 0) {
-            throw new IllegalArgumentException("La carga solo aumenta con valores positivos: " + cantidad);
-        }
-        setCargaExplosion(getCargaExplosion() + cantidad);
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    public boolean isExplotado() {
+        return explotado;
     }
 
-    /** Detona: deja su carga y su vida en cero y devuelve el daño que repartió. */
-    public int explotar() {
-        int carga = getCargaExplosion();
-        setCargaExplosion(0);
-        setVida(0);
-        return carga;
+    public void setExplotado(boolean explotado) {
+        this.explotado = explotado;
     }
 }

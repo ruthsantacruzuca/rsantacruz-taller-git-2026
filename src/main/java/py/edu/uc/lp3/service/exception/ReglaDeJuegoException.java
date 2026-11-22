@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.domain.exception;
+package py.edu.uc.lp3.service.exception;
 
 /**
  * Hija 2: una regla del juego no se puede cumplir (por ejemplo, detonar un

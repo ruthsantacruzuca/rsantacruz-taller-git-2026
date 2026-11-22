@@ -1,4 +1,4 @@
-package py.edu.uc.lp3.domain.exception;
+package py.edu.uc.lp3.service.exception;
 
 /**
  * Hija 1: el recurso pedido no existe en la persistencia.
