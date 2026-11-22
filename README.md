@@ -5,6 +5,10 @@ Ejercicio **POO-08**: CRUD REST, persistencia en **H2**, reglas de juego, simula
 
 **Commit de la solución:** [`a76999efba2e2e893fc982df54013f2334fba5d4`](https://github.com/ruthsantacruzuca/rsantacruz-taller-git-2026/commit/a76999efba2e2e893fc982df54013f2334fba5d4) — código, este README, `BITACORA.md`, la colección de Insomnia y las especificaciones (el enlace también está en [`ESPECIFICACIONES-POO-08.md`](ESPECIFICACIONES-POO-08.md) y pegado en Classroom).
 
+## Corrección de POO-08
+
+POO-08 tuvo observaciones en los criterios 2 (capa `service`) y 3 (un Creeper explotado se podía revivir con `PUT`). Las dos quedaron cerradas: las validaciones, reglas y excepciones viven en `service`, y un `PUT` sobre un Creeper con `explotado = true` responde **409**. El detalle de cada observación, la evidencia y cómo probarlo está en [`CORRECCION-POO-08.md`](CORRECCION-POO-08.md).
+
 ## Levantar
 
 ```bash
