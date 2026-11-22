@@ -69,6 +69,15 @@ Sí se usó asistencia de IA también en este ejercicio. Esta sección resume lo
 12. **Documentación.** Pedí actualizar el README (arranque, propiedades de H2, diagrama Mermaid con tres clases, interfaz, repositorio, controller y excepciones, las dos reglas en una frase, respuestas a «Qué hay que pensar» e importación de Insomnia), la bitácora y las especificaciones para Classroom.
 13. **Verificación.** Pedí correr los tests, arrancar el servicio y recorrer por `curl` el CRUD, la simulación con cadena y cada error, y detener el proceso después.
 
+## Corrección posterior de POO-08
+
+Después de la devolución del corrector (19/24, con los criterios 2 y 3 en 1 y 0), pedí estas correcciones:
+
+14. **Capa service.** Pedí mover validaciones, reglas de juego y excepciones fuera de `domain` y crear `MobService`, `JugadorService`, `ExplosionService`, `DanableService` y `ConstruccionService`; los controllers sólo delegan.
+15. **Dominio con estado.** Pedí que `Entidad`, `Mob`, `Creeper`, `Jugador`, `Esqueleto` y `ZombiePequeno` dejen de validar y de lanzar excepciones, y que `SimuladorExplosiones` pase a ser `ExplosionService`.
+16. **Creeper consumido.** Pedí persistir el booleano `explotado`, rechazar con `409` un `PUT` sobre un creeper que ya explotó y agregar `CreeperConsumidoException` con su handler.
+17. **Insomnia y documentación.** Pedí mostrar la cadena con dos creepers, crear un jugador, agregar el pedido de `409`, y actualizar README, esta bitácora y las especificaciones.
+
 ## Qué NO se delegó (POO-08)
 
 - Las decisiones de modelado (qué familia persistir, qué dos reglas contar, nombres de las excepciones) y la **defensa oral**.
